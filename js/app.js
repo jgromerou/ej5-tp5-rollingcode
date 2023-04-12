@@ -58,3 +58,19 @@ function detener() {
 function pausar() {
   clearInterval(cronometro);
 }
+
+function cambiarColor(color) {
+  let section = document.querySelector('.fs-1');
+  console.log(section);
+  section.className = 'fs-1 ' + color;
+}
+
+let btnAzul = document.querySelector('#botonIniciar'),
+  btnVerde = document.querySelector('#botonPausar'),
+  btnFucsia = document.querySelector('#botonDetener');
+
+console.log(btnAzul);
+
+btnAzul.addEventListener('click', () => cambiarColor('textoAzul'));
+btnVerde.addEventListener('click', () => cambiarColor('textoVerde'));
+btnFucsia.addEventListener('click', () => cambiarColor('textoFucsia'));
