@@ -7,6 +7,8 @@ let segundosString = '00',
   minutosString = '00',
   horasString = '00';
 
+activarBotones(false, true, true);
+
 let botonIniciar = document.getElementById('botonIniciar');
 let botonPausar = document.getElementById('botonPausar');
 let botonDetener = document.getElementById('botonDetener');
@@ -21,6 +23,7 @@ function init() {
   cronometro = setInterval(function () {
     timer();
   }, 1000);
+  activarBotones(true, false, false);
 }
 
 function timer() {
@@ -53,15 +56,16 @@ function detener() {
   segundos = 0;
   minutos = 0;
   horas = 0;
+  activarBotones(false, true, true);
 }
 
 function pausar() {
   clearInterval(cronometro);
+  activarBotones(false, true, false);
 }
 
 function cambiarColor(color) {
   let section = document.querySelector('.fs-1');
-  console.log(section);
   section.className = 'fs-1 ' + color;
 }
 
@@ -69,8 +73,12 @@ let btnAzul = document.querySelector('#botonIniciar'),
   btnVerde = document.querySelector('#botonPausar'),
   btnFucsia = document.querySelector('#botonDetener');
 
-console.log(btnAzul);
-
 btnAzul.addEventListener('click', () => cambiarColor('textoAzul'));
 btnVerde.addEventListener('click', () => cambiarColor('textoVerde'));
 btnFucsia.addEventListener('click', () => cambiarColor('textoFucsia'));
+
+function activarBotones(estadoIniciar, estadoPausar, estadoDetener) {
+  document.getElementById('botonIniciar').disabled = estadoIniciar;
+  document.getElementById('botonPausar').disabled = estadoPausar;
+  document.getElementById('botonDetener').disabled = estadoDetener;
+}
