@@ -1,11 +1,13 @@
 let cronometro;
 let segundos = 0,
   minutos = 0,
-  horas = 0;
+  horas = 0,
+  centesimas = 0;
 
-let segundosString = '00',
-  minutosString = '00',
-  horasString = '00';
+// let segundosString = '00',
+//   minutosString = '00',
+//   horasString = '00';
+//   milesimasString = '000';
 
 activarBotones(false, true, true);
 
@@ -22,12 +24,16 @@ botonDetener.addEventListener('click', detener);
 function init() {
   cronometro = setInterval(function () {
     timer();
-  }, 1000);
+  }, 10);
   activarBotones(true, false, false);
 }
 
 function timer() {
-  segundos++;
+  centesimas++;
+  if (centesimas === 100) {
+    segundos++;
+    centesimas = 0;
+  }
   if (segundos === 60) {
     minutos++;
     segundos = 0;
@@ -38,21 +44,24 @@ function timer() {
     minutos = 0;
   }
 
-  //formato 00:00:00
-  segundos < 10
-    ? (segundosString = '0' + segundos)
-    : (segundosString = segundos);
-  minutos < 10 ? (minutosString = '0' + minutos) : (minutosString = minutos);
-  horas < 10 ? (horasString = '0' + horas) : (horasString = horas);
+  //formato 00:00:00:000
+  // if (milesimas < 100)
+  // segundos < 10
+  //   ? (segundosString = '0' + segundos)
+  //   : (segundosString = segundos);
+  // minutos < 10 ? (minutosString = '0' + minutos) : (minutosString = minutos);
+  // horas < 10 ? (horasString = '0' + horas) : (horasString = horas);
 
-  document.getElementById(
-    'time'
-  ).innerHTML = `${horasString}:${minutosString}:${segundosString}`;
+  document.getElementById('time').innerHTML = `${horas
+    .toString()
+    .padStart(2, '0')}:${minutos.toString().padStart(2, '0')}:${segundos
+    .toString()
+    .padStart(2, '0')}:${centesimas.toString().padStart(2, '0')}`;
 }
 
 function detener() {
   pausar();
-  document.getElementById('time').innerHTML = '00:00:00';
+  document.getElementById('time').innerHTML = '00:00:00:00';
   segundos = 0;
   minutos = 0;
   horas = 0;
